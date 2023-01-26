@@ -8,11 +8,11 @@ import time
 
 import twint
 
-consumer_key = '0HOR3CrIYF9BGg4zcYaFR5Bku'
-consumer_secret = 'fzv8nM6lztGouFupDFwa8QYysd17GDUw8MtOhnC71QJtdhQ5GB'
-access_key = '1339125630210691072-SIr2uJAQsSy11bwIiUh1aMsNukwEh8'
-access_secret = 'dWaRdDk3Q76UmpwHqxmJYygd4afAA7W5Qs22gMfHSsWfx'
-bearer_token = "AAAAAAAAAAAAAAAAAAAAADDOKgEAAAAAERt2sgff9JFmjJbZfIeDgRUNOpE%3DyOEY5gFqBOeSgyXASxQLkZT1741wd3sFEKKYfz09MXrXlZSYFw"
+consumer_key = *insert consumer key*
+consumer_secret = *insert secret consumer key*
+access_key = *insert api access key*
+access_secret = *insert api secret access key*
+bearer_token = *insert bearer token*
 
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
@@ -43,7 +43,7 @@ def get_tweets(username):
     c = twint.Config()      #twint configuration
     c.User_id = username
     c.Store_csv = True
-    c.Output = "beyonceinfo.csv"
+    c.Output = *insert output file name*
     c.Resume = "search.txt"
     c.Limit = 100
     c.Hide_output = True
@@ -58,7 +58,7 @@ def openFile():
     res = {}
     total = []
 
-    with open ("beyonceinfo.csv", encoding='cp437') as f:
+    with open (*insert input csv file*, encoding='cp437') as f:
         reader = csv.DictReader(f)
 
         for row in reader:
@@ -112,7 +112,7 @@ def likesAndRetweets(strings, name, row):
     return tweet  
 
 def check():
-    with open ('Extracted Tweets/beyonceinfo.json', 'r') as f:
+    with open (*insert output file path*, 'r') as f:
         data = json.load(f)
     f.close()
 
@@ -130,23 +130,26 @@ def check():
     
 
 if __name__ == '__main__':
-    with open ('Beyonce_fanAccounts.csv', encoding='cp437') as f:
+    with open (*insert input csv file name*, encoding='cp437') as f:
         reader = csv.DictReader(f) 
 
-        # for row in reader:
-        #     strings =  (list((row.values())))[0]
-        #     print(strings)
-        #     # regex = '(\S*)[\t]'
+        for row in reader:
+            strings =  (list((row.values())))[0]
+            print(strings)
+            
+            ##regex required when account number does not appear under a specific column under csv file
+            
+            # regex = '(\S*)[\t]'
 
-        #     # data = re.findall(regex, strings)
-        #     # # if data and data[0]: print(data[0])
+            # data = re.findall(regex, strings)
+            # # if data and data[0]: print(data[0])
 
-        #     # pattern = "\d+[.]?\d*"
-        #     # if data and data[0]:
-        #     #     id = re.findall(pattern, data[0])
-        #     #     if id:
-        #     #         print(str(id[0]))
-        #     get_tweets(strings)
+            # pattern = "\d+[.]?\d*"
+            # if data and data[0]:
+            #     id = re.findall(pattern, data[0])
+            #     if id:
+            #         print(str(id[0]))
+            get_tweets(strings)
     f.close()
     # openFile()        
     check()
